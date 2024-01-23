@@ -38,7 +38,7 @@ function SignUp() {
       navigate('/sign-in')
     } catch (error) {
       setLoading(false)
-      setError(error.message)
+      setError(error.response.data.message)
       console.error('Error during signup:', error);
      
     }
