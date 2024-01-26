@@ -32,7 +32,7 @@ function SignUp() {
         },
       });
 
-      const data = response.data;
+      const data = await response.data;
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));
