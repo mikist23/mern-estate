@@ -4,6 +4,7 @@ import { useState,useEffect } from 'react'
 import {getDownloadURL, getStorage,ref,uploadBytesResumable} from 'firebase/storage'
 import {app} from '../firebase'
 import {useDispatch} from  'react-redux'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 import {  updateUserFailure,updateUserStart,updateUserSuccess } from '../redux/user/userSlice'
 import { deleteUserFailure,deleteUserStart,deleteUserSuccess } from '../redux/user/userSlice'
@@ -150,6 +151,12 @@ function Profile() {
         disabled:opacity-80'>
           {loading? 'Loading ...': 'Update'}
         </button>
+        
+        <Link className='text-center bg-green-700 p-3 rounded-lg
+        uppercase hover:opacity-95 text-white' to={'/create-listing'} >
+          Create Listing
+        </Link>
+
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>Delete Account</span>
