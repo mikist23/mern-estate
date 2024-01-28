@@ -247,7 +247,7 @@ function CreateListing() {
                     {
                             formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
                               <div key={url} className="flex justify-between p-3 border items-center">
-                                <img src={url} alt="Listing" className="w-20 h-20 object-contain rounded-lg" />
+                                <img src={url} alt="Listing" className="w-30 h-24 object-contain rounded-lg" />
                                 <button
                                 disabled={uploading} onClick={()=>handleRemoveImage(index)}
                                 type="button" className="p-3 text-red-700 rounded-lg uppercase hover:opacity-75">Delete</button>
