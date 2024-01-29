@@ -1,17 +1,19 @@
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { app } from "../firebase"
 import {useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
 
-function CreateListing() {
+function UpdateListing() {
     const navigate = useNavigate()
+    const params = useParams()
     const [files, setFiles] = useState([])
     const [uploading, setUploading] = useState(false)
     const [error, setError] = useState(false)
     const [loading ,setLoading] = useState(false)
     const {currentUser} = useSelector(state=> state.user)
+    const [imageUplaodError , setImageUploadError] = useState(false)
     const [formData, setFormData] = useState({
         imageUrls: [],
         name:"",
@@ -26,8 +28,23 @@ function CreateListing() {
         parking:false,
         furnished:false,
     })
-    console.log(formData);
-    const [imageUplaodError , setImageUploadError] = useState(false)
+    
+    useEffect(()=>{
+       const fetchListing = async () =>{
+         const listingId =  params.listingId 
+         const res = await fetch(`/api/listing/get/${listingId}`)
+         const data = await res.json()
+
+         if(data.success === false){
+            console.log(data.message)
+            return
+         }
+          
+        setFormData(data)
+       }
+
+       fetchListing()
+    },[])
     
 
     const handleImageSubmit = (e)=>{
@@ -46,7 +63,6 @@ function CreateListing() {
                 })
                 setImageUploadError(false)
                 setUploading(false)
-                setError(false);
             }).catch((error)=>{
                 setImageUploadError("Image upload failed (2mb max per image")
                 setUploading(false)
@@ -124,7 +140,7 @@ function CreateListing() {
             if(+formData.regularPrice < +formData.discountPrice) return setError("Discount price must be lower than regular price")
             setLoading(true)
             setError(false)
-            const res = await fetch("/api/listing/create", {
+            const res = await fetch(`/api/listing/update/${params.listingId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -133,9 +149,8 @@ function CreateListing() {
                  userRef: currentUser._id}   )
             } )
 
-            const data = await  res.json()
+            const data = await res.json()
             setLoading(false)
-            
 
             if(data.success === false){
                 setError(data.message)
@@ -148,7 +163,7 @@ function CreateListing() {
     }
   return (
     <main className="p-3 max-w-4xl mx-auto">
-        <h1 className="text-center text-3xl my-7 font-semibold">Create a Listing</h1>
+        <h1 className="text-center text-3xl my-7 font-semibold">Update a Listing</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4" >
             
@@ -241,7 +256,7 @@ function CreateListing() {
                         onChange={(e)=> setFiles(e.target.files)}
                          className="p-3 border border-gray-300 rounded w-full "
                          type="file" id="images" accept="images/*" multiple />
-                         <button onClick={handleImageSubmit} className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg
+                         <button type="button" onClick={handleImageSubmit} className="p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg
                          disabled:opacity-80" >{uploading ? 'Uploading ...' : "Upload"}</button>
                     </div>
                     <p className="text-red-700 text-sm">{imageUplaodError && imageUplaodError}</p>
@@ -259,7 +274,7 @@ function CreateListing() {
 
                     <button disabled={loading || uploading} className="p-3 bg-slate-700 text-white rounded-lg uppercase
                     hover:opacity-95 disabled:opacitying-80" >
-                        {loading ? "Creating ..." : 'Create Listing'}
+                        {loading ? "Updating ..." : 'Update Listing'}
                     </button>
                     {error && <p className="text-red-700 text-sm"> {error} </p>  }
              </div>
@@ -274,4 +289,4 @@ function CreateListing() {
   )
 }
 
-export default CreateListing
+export default UpdateListing
