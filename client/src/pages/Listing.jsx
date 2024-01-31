@@ -3,25 +3,29 @@ import {useParams} from 'react-router-dom'
 import {Swiper, SwiperSlide} from 'swiper/react'
 import SwiperCore from 'swiper'
 import {Navigation} from 'swiper/modules'
+import {useSelector} from 'react-redux'
 import 'swiper/css/bundle'
 import {
   FaBath,
   FaBed,
   FaChair,
-  FaMapMarkedAlt,
   FaMapMarkerAlt,
   FaParking,
   FaShare,
 } from 'react-icons/fa';
+import Contact from "../components/Contact"
 
 
 function Listing() {
     SwiperCore.use([Navigation])
+    const {currentUser} =  useSelector(state => state.user)
     const params = useParams()
     const [copied, setCopied] = useState(false);
     const [listing , setListing] = useState(null)
     const [loading , setLoading] = useState(false)
     const [error , setError] = useState(false)
+    const [contact, setContact] = useState(false)
+    
     
 
   useEffect(()=>{
@@ -159,6 +163,17 @@ function Listing() {
 
             
           </ul>
+
+          {/**Contact landlord */}
+          {
+            currentUser && listing.userRef !== currentUser._id && !contact &&
+            <button onClick={()=> setContact(true)} className="bg-slate-700 rounded-lg p-3 text-white uppercase hover:opacity-95">
+            Contact Landlord
+          </button> 
+          }
+
+          {contact && <Contact listing={listing}/>}
+          
 
 
          </div>
