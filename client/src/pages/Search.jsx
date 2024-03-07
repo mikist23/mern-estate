@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react'
 import { useNavigate , useLocation } from 'react-router-dom';
+import ListingItem from '../components/ListingItem';
 function Search() {
     const navigate = useNavigate()
     const location = useLocation(); 
     const [loading, setLoading] = useState(false)
     const [listings, setListings] = useState([])
-    console.log(listings)
+    
     const [sidebardata, setSidebardata] = useState({
         searchTerm: '',
         type: 'all',
@@ -18,7 +19,7 @@ function Search() {
 
     useEffect (()=>{
         const urlParams = new URLSearchParams(location.search)
-        const searchTermFromUrl = urlParams.get('searhTerm')
+        const searchTermFromUrl = urlParams.get('searchTerm')
         const  typeFromUrl = urlParams.get('type')
         const  parkingFromUrl = urlParams.get('parking')
         const  furnishedFromUrl = urlParams.get('furnished')
@@ -57,7 +58,7 @@ function Search() {
     }, [location.search])
 
     const handleChange = (e) => {
-        e.preventDefault
+        
         if(e.target.id === 'all'  ||  e.target.id === 'rent'  || e.target.id === 'sale'){
             setSidebardata({...sidebardata, type: e.target.id})
         }
@@ -81,17 +82,17 @@ function Search() {
 
     
   const handleSubmit = (e) =>{
-    e.preventDefault
-    const urlParams = new URLSearchParams()
-    urlParams.set('searchTerm', sidebardata.searchTerm)
-    urlParams.set('type', sidebardata.type)
-    urlParams.set('parking', sidebardata.parking)
-    urlParams.set('furnished', sidebardata.furnished)
-    urlParams.set('offer', sidebardata.offer)
-    urlParams.set('sort', sidebardata.sort)
-    urlParams.set('order', sidebardata.order)
-    const searchQuery = urlParams.toString()
-    navigate(`/search?${searchQuery}`)
+    e.preventDefault()
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('searchTerm', sidebardata.searchTerm);
+    urlParams.set('type', sidebardata.type);
+    urlParams.set('parking', sidebardata.parking.toString()); // Convert boolean to string
+    urlParams.set('furnished', sidebardata.furnished.toString()); // Convert boolean to string
+    urlParams.set('offer', sidebardata.offer.toString()); // Convert boolean to string
+    urlParams.set('sort', sidebardata.sort);
+    urlParams.set('order', sidebardata.order);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
   }
 
 
@@ -193,8 +194,22 @@ function Search() {
             </form>
         </div>
         
-        <div className="text-3xl font-semibold p-3 text text-slate-700 border-b mt-5">
+        <div className="flex-1">
+            <h1 className='text-3xl font-semibold p-3 text text-slate-700 border-b mt-5'>
             Listing results:
+
+            <div className="p-7 flex flex-wrap gap-4">
+    {!loading && listings.length === 0 && (
+        <p className='text-xl text-slate-700'>No listing found!</p>
+    )}
+    {loading && (
+        <p className='text-xl text-slate-700 text-center w-full'>Loading ...</p>
+    )}
+    {!loading && listings && listings.map((listing) => (<ListingItem key={listing._id} listing={listing} />))}
+</div>
+
+            </h1>
+            
         </div>
     </div>
   )
