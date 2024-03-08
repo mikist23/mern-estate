@@ -14,8 +14,32 @@ function ListingItem({listing}) {
             <p className="font-semibold truncate text-lg text-slate-700">{listing.name}</p>
             <div className="flex items-center gap-1">
                 <MdLocationOn className="h-4 w-4 text-green-700"/>
-                <p className="text-sm text-gray-600">{listing.address}</p>
+                <p className="text-sm text-gray-600 truncate w-full">{listing.address}</p>
             </div>
+            
+              <p className="text-sm text-gray-600 line-clamp-2 w-full">{listing.description}</p>
+
+              <p className="text-green-700 text-sm mt-2 font-semibold">
+                $
+                {listing.offer ? listing.discountPrice.toLocaleString('en-US') : 
+                listing.regularPrice.toLocaleString('en-US')
+                }
+                {listing.type === 'rent' && ' / month'}
+              </p>
+
+              <div className=" text-slate-700 flex gap-4">
+                <div className="font-semibold text-sm">
+                  {listing.bedrooms >1 ? `${listing.bedrooms} beds` : 
+                  `${listing.bedrooms} bed`}
+                </div>
+
+                <div className="font-semibold text-sm">
+                  {listing.bathrooms >1 ? `${listing.bathrooms} baths` : 
+                  `${listing.bathrooms} bath`}
+                </div>
+              </div>
+            
+
         </div>
     
     </Link>
