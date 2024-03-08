@@ -37,6 +37,7 @@ function ListingItem({listing}) {
                   {listing.bathrooms >1 ? `${listing.bathrooms} baths` : 
                   `${listing.bathrooms} bath`}
                 </div>
+                
               </div>
             
 
