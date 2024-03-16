@@ -7,10 +7,10 @@ import { Navigation } from "swiper/modules";
 import ListingItem from "../components/ListingItem";
 import Contact from "../pages/Contact";
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
-import largeHouseImage from '../assets/large-houses-to-rent-for-weekends.jpg';
-import backgroundImage from '../assets/user101.jpeg';
-
-
+import largeHouseImage from "../assets/large-houses-to-rent-for-weekends.jpg";
+import backgroundImage from "../assets/user101.jpeg";
+import backgroundImages from "../assets/footer-art.svg";
+import { FaSearch } from "react-icons/fa";
 
 function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -59,37 +59,39 @@ function Home() {
   return (
     <div>
       <div className="">
-      <div className="relative">
-  {/* Background Image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center z-0"
-    style={{ backgroundImage: `url(${backgroundImage})` }}
-  ></div>
+        <div className="relative mt-2 rounded-lg">
+          {/* Background Image */}
+          <div
+            className="absolute inset-0 bg-cover bg-center z-0"
+            style={{ backgroundImage: `url(${backgroundImage})` }}
+          ></div>
 
-  {/* Text Content */}
-  <div className="flex flex-col items-center justify-center p-8 lg:p-28 px-3 max-w-6xl mx-auto z-10">
-    <h1 className="text-3xl text-slate-700 font-bold lg:text-6xl text-center">
-      Find your next <span className="text-slate-500">perfect</span>
-      <br />
-      place with ease
-    </h1>
+          {/* Text Content */}
+          <div className="flex flex-col items-center justify-center p-8 lg:p-28 px-3 max-w-6xl mx-auto z-10">
+            <h1 className="text-3xl text-white font-bold lg:text-6xl text-center relative">
+              {" "}
+              {/* Added relative class */}
+              Find Your Next <span className="text-blue-500">Perfect</span>
+              <br className="mt-5" />
+              Place With Ease
+            </h1>
+            {/** 
+      <div className="text-white text-xs sm:text-sm text-center mt-4 relative"> 
+        Mikist Estate will help you find your home fast, easy, and comfortable.
+        <br />
+        Our expert support is always available.
+      </div>
+    */}
 
-    <div className="text-gray-400 text-xs sm:text-sm text-center mt-4">
-      Mikist Estate will help you find your home fast, easy, and comfortable.
-      <br />
-      Our expert support is always available.
-    </div>
-
-    <Link
-      className="text-xs sm:text-sm text-blue-800 font-bold hover:underline mt-4"
-      to={"/search"}
-    >
-      Let's get started ...
-    </Link>
-  </div>
-</div>
-</div>
-
+            <Link
+              to={"/search"}
+              className="text-sm sm:text-sm text-blue-500 font-bold hover:underline mt-4 relative"
+            >
+              Let's get started ...
+            </Link>
+          </div>
+        </div>
+      </div>
 
       {/** swiper*
       <Swiper navigation>
@@ -112,7 +114,7 @@ function Home() {
 
       {/**listing results */}
 
-      <div className="max-w-8xl mx-auto p-3 flex flex-colm gap-8 my-10">
+      <div className="max-w-8xl mx-auto p-3 flex flex-colm gap-8 my-10 sm">
         {offerListings && offerListings.length > 0 && (
           <div className="">
             <div className="my-3">
@@ -225,18 +227,101 @@ function Home() {
         )}
       </div>
 
-      {/**Contact */}
-      {
-        
-        <div className="">
-   <Contact  />
-  //<img src={largeHouseImage} alt="rgzzzzzzzzzzzzzzzzzzzzzzzz" />
+      {/* Contact Section 
+<div className="w-full gap-6 flex flex-wrap my-10 items-center justify-center">
+  
+  <div className="w-full text-center">
+    <div className="mb-2">
+      <div className="flex justify-center">
+        <div className="w-6 h-6 border-b border-gray-700 transform rotate-45"></div>
+      </div>
+      <p className="text-gray-700 text-lg font-semibold">More recommended homes</p>
+    </div>
+  </div>*/}
 
+      {/* First Card 
+  <div className="w-full lg:w-1/4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out text-center">
+    <img src={backgroundImage} alt="Card image" className="h-full object-cover mb-2" />
+    <h3 className="text-xl font-semibold text-gray-800 mb-2">Finance a home</h3>
+    <p className="text-gray-700 mb-4">
+      Zillow Home Loans can get you pre-approved so you're ready to make an offer quickly when you find the right home.
+    </p>
+    <button className="mt-4 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">
+      Start now
+    </button>
+  </div> */}
+
+      {/* Second Card 
+  <div className="w-full lg:w-1/4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out text-center">
+    <img src={backgroundImage} alt="Card image" className="h-full object-cover mb-2" />
+    <h3 className="text-xl font-semibold text-gray-800 mb-2">Finance a home</h3>
+    <p className="text-gray-700 mb-4">
+      Zillow Home Loans can get you pre-approved so you're ready to make an offer quickly when you find the right home.
+    </p>
+    <button className="mt-4 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">
+      Start now
+    </button>
+  </div> */}
+
+      {/* Third Card 
+  <div className="w-full lg:w-1/4 p-4 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition duration-300 ease-in-out text-center">
+    <img src={backgroundImage} alt="Card image" className="h-full object-cover mb-2" />
+    <h3 className="text-xl font-semibold text-gray-800 mb-2">Finance a home</h3>
+    <p className="text-gray-700 mb-4">
+      Zillow Home Loans can get you pre-approved so you're ready to make an offer quickly when you find the right home.
+    </p>
+    <button className="mt-4 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">
+      Start now
+    </button>
+  </div>
+</div>*/}
+
+      <div className="container mx-auto px-4 py-8">
+        <h2 className="text-2xl font-bold text-gray-700 mb-4">
+          About Mikist Estate Recommendations
+        </h2>
+        <p className="text-gray-600 mb-6">
+          Recommendations are based on your location and search activity, such
+          as the homes you've viewed and saved and the filters you've used. We
+          use this information to bring similar homes to your attention, so you
+          don't miss out.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-4">
+          <button className="px-6 py-3 bg-white border border-gray-300 rounded shadow hover:bg-blue-400  focus:outline-none">
+            Real Estate ▼
+          </button>
+          <button className="px-6 py-3 bg-white border border-gray-300 rounded shadow hover:bg-blue-400  focus:outline-none">
+            Rentals ▼
+          </button>
+          <button className="px-6 py-3 bg-white border border-gray-300 rounded shadow hover:bg-blue-400 focus:outline-none">
+            Mortgage Rates ▼
+          </button>
+          <button className="px-6 py-3 bg-white border border-gray-300 rounded shadow hover:bg-blue-400 focus:outline-none">
+            Browse Homes ▼
+          </button>
+          <button className="px-6 py-3 bg-white border border-gray-300 rounded shadow hover:bg-blue-400  focus:outline-none">
+            Sell Homes ▼
+          </button>
         </div>
-        
-        }
-        
-        
+
+        <footer className="mt-8 text-center">
+          <a href="#" className="text-blue-500 hover:underline mr-4 ">
+            About
+          </a>
+          <a href="#" className="text-blue-500 hover:underline mr-4">
+            Research
+          </a>
+          <a href="#" className="text-blue-500 hover:underline mr-4">
+            FAQ
+          </a>
+          <a href="#" className="text-blue-500 hover:underline">
+            Contact
+          </a>
+        </footer>
+        <img src={backgroundImages} className="p-5 mt-8" alt="" />
+      </div>
+
     </div>
   );
 }
