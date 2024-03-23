@@ -23,18 +23,17 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
-mongoose
-  .connect(process.env.Mongo)
+  mongoose.connect(process.env.MONGO)
   .then(() => {
-    console.log("Conneted to MongoDB!");
+    console.log("Connected to MongoDB!"); 
+    app.listen(3000, () => {
+      console.log("Server running on port 3000!");
+    });
   })
   .catch((err) => {
-    console.log(err);
+    console.error("Failed to connect to MongoDB:", err);
   });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000!");
-});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
